@@ -563,7 +563,7 @@ void GetSkinJointMatricesForNormals(
     if (parent_ujoint_i != SkinInfluence::kUnused) {
         if (parent_ujoint_i >= ujoint_i) {
             // Log the error or handle it in some other appropriate way for your application
-            std::cerr << "Unexpected joint hierarchy: parent index is not less than current index" << std::endl;
+            // std::cerr << "Unexpected joint hierarchy: parent index is not less than current index" << std::endl;
         } else {
             const GfMatrix4d& parent_bind_mat4 = skin_info.bind_mats[parent_ujoint_i];
             const GfMatrix3f parent_bind_mat(ToMatrix3f(parent_bind_mat4));
@@ -571,10 +571,9 @@ void GetSkinJointMatricesForNormals(
             // mat is in joint-space, but parent_mat transforms from bind-space. So
             // multiply parent_bind_mat to compensate.
             mat *= parent_bind_mat * parent_mat;
+            out_norm_mats[ujoint_i] = mat;
         }
     }
-
-    out_norm_mats[ujoint_i] = mat;
   }
 
   // Apply inverse-transpose so matrices are suitable for transforming normals
